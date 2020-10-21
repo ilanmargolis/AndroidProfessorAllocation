@@ -11,15 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Retrofit">
-        <activity android:name=".activities.DepartamentActivity"></activity>
-        <activity android:name=".activities.ProfessorActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.DepartamentActivity"
+            android:label="Lista de departamentos" />
+
+        <activity
+            android:name=".activities.ProfessorActivity"
+            android:label="Lista de professores" />
+
+        <activity android:name=".MainActivity"
+                  android:label="Menu principal"/>
     </application>
 
 </manifest>
