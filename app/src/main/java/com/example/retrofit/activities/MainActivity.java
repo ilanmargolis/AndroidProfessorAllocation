@@ -1,4 +1,4 @@
-package com.example.retrofit;
+package com.example.retrofit.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.retrofit.activities.DepartamentActivity;
-import com.example.retrofit.activities.ProfessorActivity;
+import com.example.retrofit.R;
 
 
 public class MainActivity extends AppCompatActivity {

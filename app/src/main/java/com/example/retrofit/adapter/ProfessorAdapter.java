@@ -66,10 +66,10 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
             tvNome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, tvNome.getText().toString(), Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(context, ProfessorActivity.class);
-                    intent.putExtra("nome", tvNome.getText().toString());
-                    context.startActivity(intent);
+    //                Toast.makeText(context, tvNome.getText().toString(), Toast.LENGTH_SHORT).show();
+    //                Intent intent = new Intent(context, ProfessorActivity.class);
+    //                intent.putExtra("nome", tvNome.getText().toString());
+    //                context.startActivity(intent);
                 }
             });
         }
