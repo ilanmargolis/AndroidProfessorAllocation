@@ -7,12 +7,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.retrofit.dao.AllocationDao;
+import com.example.retrofit.dao.CourseDao;
 import com.example.retrofit.dao.DepartamentDao;
 import com.example.retrofit.dao.ProfessorDao;
+import com.example.retrofit.model.Allocation;
+import com.example.retrofit.model.Course;
 import com.example.retrofit.model.Departament;
 import com.example.retrofit.model.Professor;
 
-@Database(entities = {Professor.class, Departament.class}, version = 1)
+@Database(entities = {Professor.class, Departament.class, Course.class, Allocation.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class RoomConfig extends RoomDatabase {
 
@@ -20,6 +24,8 @@ public abstract class RoomConfig extends RoomDatabase {
 
     public abstract ProfessorDao professorDAO();
     public abstract DepartamentDao departamentDao();
+    public abstract CourseDao courseDao();
+    public abstract AllocationDao allocationDao();
 
     public static RoomConfig getInstance(Context context) {
         if (instance == null) {

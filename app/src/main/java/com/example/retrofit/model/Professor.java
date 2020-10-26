@@ -9,9 +9,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "Professor")
 public class Professor {
 
-    @PrimaryKey(autoGenerate = true)
-    private int local_id;
-    @ColumnInfo(name = "server_id", index = true)
+    @PrimaryKey
+    @ColumnInfo(name = "server_id")
     private int id;
     private String name;
     private String cpf;
@@ -28,14 +27,6 @@ public class Professor {
 
     public void setDepartament(Departament departament) {
         this.departament = departament;
-    }
-
-    public int getLocal_id() {
-        return local_id;
-    }
-
-    public void setLocal_id(int local_id) {
-        this.local_id = local_id;
     }
 
     public int getId() {

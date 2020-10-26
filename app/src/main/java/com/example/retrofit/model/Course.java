@@ -4,19 +4,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "Departament")
-public class Departament {
+@Entity
+public class Course {
 
     @PrimaryKey
     @ColumnInfo(name = "server_id")
     private int id;
     private String name;
 
-    public Departament() {
+    public Course() {
     }
 
-    public Departament(int id, String name) {
-        this.id = id;
+    public Course(String name) {
         this.name = name;
     }
 

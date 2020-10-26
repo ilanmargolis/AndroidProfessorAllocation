@@ -11,24 +11,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Retrofit">
-        <activity android:name=".activities.SplashScreenActivity" android:noHistory="true">
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".activities.DepartamentActivity"
-            android:label="Lista de departamentos" />
-
+            android:name=".activities.MainActivity"
+            android:label="Menu principal" />
         <activity
             android:name=".activities.ProfessorActivity"
             android:label="Lista de professores" />
-
-        <activity android:name=".activities.MainActivity"
-                  android:label="Menu principal"/>
+        <activity
+            android:name=".activities.DepartamentActivity"
+            android:label="Lista de departamentos" />
+        <activity
+            android:name=".activities.CourseActivity"
+            android:label="Lista de cursos" />
+        <activity
+            android:name=".activities.AllocationActivity"
+            android:label="Lista de horário de aula" />
     </application>
 
 </manifest>
