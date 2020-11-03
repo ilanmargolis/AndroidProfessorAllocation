@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.retrofit.R;
@@ -22,29 +26,31 @@ import retrofit2.Response;
 
 public class DepartamentActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView rvDepartament;
     private DepartamentAdapter departamentAdapter;
-    private boolean inserirDados;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_departament);
 
-        // provisório pois não sei como resolver a duplicidade quando insere
-        inserirDados = (RoomConfig.getInstance(DepartamentActivity.this).departamentDao().getAll().size() == 0);
+        rvDepartament = (RecyclerView) findViewById(R.id.rvDepartament);
+        rvDepartament.setLayoutManager(new LinearLayoutManager(DepartamentActivity.this));
+    }
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    @Override
+    public void onResume() {
+        super.onResume();
 
         getAllDepartaments(new ResultEvent() {
             @Override
-            public void onResult(List listaDepartament) {
+            public <T> void onResult(T result) {
                 // Quando houver resultado mostre os valores na tela
-                List<Departament> departamentList = RoomConfig.getInstance(DepartamentActivity.this).departamentDao().getAll();
+                List<Departament> departamentList = (List<Departament>) result; //RoomConfig.getInstance(DepartamentActivity.this).departamentDao().getAll();
 
                 departamentAdapter = new DepartamentAdapter(DepartamentActivity.this, departamentList);
-                recyclerView.setAdapter(departamentAdapter);
+                rvDepartament.setAdapter(departamentAdapter);
             }
 
             @Override
@@ -53,6 +59,31 @@ public class DepartamentActivity extends AppCompatActivity {
                 Toast.makeText(DepartamentActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_generic, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                intent = new Intent(DepartamentActivity.this, DepartamentDadosActivity.class);
+                intent.putExtra("departament", new Departament());
+                startActivity(intent);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void getAllDepartaments(ResultEvent resultEvent) {
@@ -64,9 +95,7 @@ public class DepartamentActivity extends AppCompatActivity {
             public void onResponse(Call<List<Departament>> call, Response<List<Departament>> response) {
                 List<Departament> departamentList = response.body();
 
-                if (inserirDados) {
-                    RoomConfig.getInstance(DepartamentActivity.this).departamentDao().insertAll(departamentList);
-                }
+                RoomConfig.getInstance(DepartamentActivity.this).departamentDao().insertAll(departamentList);
 
                 resultEvent.onResult(departamentList);
             }

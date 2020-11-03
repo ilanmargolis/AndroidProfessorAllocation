@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -25,23 +29,27 @@ public class AllocationActivity extends AppCompatActivity {
 
     private RecyclerView rvAllocation;
     private AllocationAdapter allocationAdapter;
-    private boolean inserirDados;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_allocation);
 
-        // provisório pois não sei como resolver a duplicidade quando insere
-        inserirDados = (RoomConfig.getInstance(AllocationActivity.this).allocationDao().getAll().size() == 0);
-
         rvAllocation = (RecyclerView) findViewById(R.id.rvAllocation);
-        rvAllocation.setLayoutManager(new LinearLayoutManager(this));
+        rvAllocation.setLayoutManager(new LinearLayoutManager(AllocationActivity.this));
+        allocationAdapter = new AllocationAdapter(this, null);
+        rvAllocation.setAdapter(allocationAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         getAllAlocation(new ResultEvent() {
             @Override
-            public void onResult(List list) {
-                List<Allocation> allocationList = RoomConfig.getInstance(AllocationActivity.this).allocationDao().getAll();
+            public <T> void onResult(T result) {
+                List<Allocation> allocationList = (List<Allocation>) result; // RoomConfig.getInstance(AllocationActivity.this).allocationDao().getAll();
 
                 allocationAdapter = new AllocationAdapter(AllocationActivity.this, allocationList);
                 rvAllocation.setAdapter(allocationAdapter);
@@ -54,6 +62,31 @@ public class AllocationActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_generic, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                intent = new Intent(AllocationActivity.this, AllocationDadosActivity.class);
+                intent.putExtra("allocation", new Allocation());
+                startActivity(intent);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
     private void getAllAlocation(ResultEvent resultEvent) {
         Call<List<Allocation>> call = new RetrofitConfig().getAllocationService().getAllAllocation();
 
@@ -62,9 +95,7 @@ public class AllocationActivity extends AppCompatActivity {
             public void onResponse(Call<List<Allocation>> call, Response<List<Allocation>> response) {
                 List<Allocation> allocationList = response.body();
 
-                if (inserirDados) {
-                    RoomConfig.getInstance(AllocationActivity.this).allocationDao().insertAll(allocationList);
-                }
+                RoomConfig.getInstance(AllocationActivity.this).allocationDao().insertAll(allocationList);
 
                 resultEvent.onResult(allocationList);
             }

@@ -1,6 +1,7 @@
 package com.example.retrofit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retrofit.R;
+import com.example.retrofit.activities.CourseDadosActivity;
 import com.example.retrofit.model.Course;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHolder> {
@@ -41,18 +44,25 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseHold
 
     @Override
     public int getItemCount() {
-        return this.courseList.size();
+        return this.courseList != null ? this.courseList.size() : 0;
     }
 
     public class CourseHolder extends RecyclerView.ViewHolder {
-        // gerenciar os itens do XML
-
         TextView tvCourse;
 
         public CourseHolder(@NonNull View itemView) {
             super(itemView);
 
             tvCourse = (TextView) itemView.findViewById(R.id.tvCourse);
+
+            tvCourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CourseDadosActivity.class);
+                    intent.putExtra("course", (Serializable) courseList.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

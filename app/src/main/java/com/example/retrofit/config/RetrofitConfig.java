@@ -1,6 +1,5 @@
 package com.example.retrofit.config;
 
-import com.example.retrofit.model.Professor;
 import com.example.retrofit.service.AllocationService;
 import com.example.retrofit.service.CourseService;
 import com.example.retrofit.service.DepartamentService;

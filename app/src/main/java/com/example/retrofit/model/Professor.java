@@ -2,12 +2,12 @@ package com.example.retrofit.model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Professor")
-public class Professor {
+public class Professor implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "server_id")
@@ -23,6 +23,13 @@ public class Professor {
         this.name = name;
         this.cpf = cpf;
         this.departament = departament;
+    }
+
+    public Professor(Professor p) { // clone
+        this.id = p.id;
+        this.name = p.name;
+        this.cpf = p.cpf;
+        this.departament = p.departament;
     }
 
     public void setDepartament(Departament departament) {

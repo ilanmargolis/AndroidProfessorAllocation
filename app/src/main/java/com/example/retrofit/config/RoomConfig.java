@@ -22,7 +22,7 @@ public abstract class RoomConfig extends RoomDatabase {
 
     private static RoomConfig instance = null;
 
-    public abstract ProfessorDao professorDAO();
+    public abstract ProfessorDao professorDao();
     public abstract DepartamentDao departamentDao();
     public abstract CourseDao courseDao();
     public abstract AllocationDao allocationDao();

@@ -35,6 +35,11 @@
         <activity
             android:name=".activities.AllocationActivity"
             android:label="Lista de horário de aula" />
+
+        <activity android:name=".activities.ProfessorDadosActivity" />
+        <activity android:name=".activities.DepartamentDadosActivity" />
+        <activity android:name=".activities.CourseDadosActivity" />
+        <activity android:name=".activities.AllocationDadosActivity" />
     </application>
 
 </manifest>

@@ -4,8 +4,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Departament")
-public class Departament {
+public class Departament implements Serializable {
 
     @PrimaryKey
     @ColumnInfo(name = "server_id")
@@ -15,8 +17,7 @@ public class Departament {
     public Departament() {
     }
 
-    public Departament(int id, String name) {
-        this.id = id;
+    public Departament(String name) {
         this.name = name;
     }
 

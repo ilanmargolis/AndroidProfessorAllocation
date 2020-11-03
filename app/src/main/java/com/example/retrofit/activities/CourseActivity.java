@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.retrofit.R;
@@ -27,24 +31,26 @@ public class CourseActivity extends AppCompatActivity {
 
     private RecyclerView rvCourse;
     private CourseAdapter courseAdapter;
-    private boolean inserirDados;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
-        // provisório pois não sei como resolver a duplicidade quando insere
-        inserirDados = (RoomConfig.getInstance(CourseActivity.this).courseDao().getAll().size() == 0);
-
         rvCourse = (RecyclerView) findViewById(R.id.rvCourse);
-        rvCourse.setLayoutManager(new LinearLayoutManager(this));
+        rvCourse.setLayoutManager(new LinearLayoutManager(CourseActivity.this));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
         getAllCourse(new ResultEvent() {
             @Override
-            public void onResult(List listaCourse) {
+            public <T> void onResult(T result) {
                 // Quando houver resultado mostre os valores na tela
-                List<Course> courseList = RoomConfig.getInstance(CourseActivity.this). courseDao().getAll();
+                List<Course> courseList = (List<Course>) result;
 
                 courseAdapter = new CourseAdapter(CourseActivity.this, courseList);
                 rvCourse.setAdapter(courseAdapter);
@@ -56,7 +62,31 @@ public class CourseActivity extends AppCompatActivity {
                 Toast.makeText(CourseActivity.this, message, Toast.LENGTH_LONG).show();
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_generic, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                intent = new Intent(CourseActivity.this, CourseDadosActivity.class);
+                intent.putExtra("course", new Course());
+                startActivity(intent);
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     private void getAllCourse(ResultEvent resultEvent) {
@@ -68,9 +98,7 @@ public class CourseActivity extends AppCompatActivity {
             public void onResponse(Call<List<Course>> call, Response<List<Course>> response) {
                 List<Course> courseList = response.body();
 
-                if (inserirDados) {
-                    RoomConfig.getInstance(CourseActivity.this).courseDao().insertAll(courseList);
-                }
+                RoomConfig.getInstance(CourseActivity.this).courseDao().insertAll(courseList);
 
                 resultEvent.onResult(courseList);
             }
@@ -81,5 +109,4 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
     }
-
 }

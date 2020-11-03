@@ -1,6 +1,7 @@
 package com.example.retrofit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.retrofit.R;
+import com.example.retrofit.activities.DepartamentDadosActivity;
 import com.example.retrofit.model.Departament;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class DepartamentAdapter extends RecyclerView.Adapter<DepartamentAdapter.DepartamentHolder> {
@@ -41,18 +44,25 @@ public class DepartamentAdapter extends RecyclerView.Adapter<DepartamentAdapter.
 
     @Override
     public int getItemCount() {
-        return this.departamentList.size();
+        return this.departamentList != null ? this.departamentList.size() : 0;
     }
 
     public class DepartamentHolder extends RecyclerView.ViewHolder {
-        // gerenciar os itens do XML
-
         TextView tvDepartament;
 
         public DepartamentHolder(@NonNull View itemView) {
             super(itemView);
 
             tvDepartament = (TextView) itemView.findViewById(R.id.tvDepartament);
+
+            tvDepartament.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DepartamentDadosActivity.class);
+                    intent.putExtra("departament", (Serializable) departamentList.get(getAdapterPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

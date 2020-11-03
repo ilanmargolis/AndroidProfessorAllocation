@@ -9,20 +9,25 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ProfessorService {
 
-    @POST
+    @POST("professor")
     Call<Professor> create(@Body Professor professor);
+
+    @PUT("professor/{id}")
+    Call<Professor> update(@Path("id") int id, @Body Professor professor);
 
     @GET("professor")
     Call<List<Professor>> getAllProfessor();
 
-    @GET("professor")
-    Call<Professor> getProfessor(@Query("id") long id);
+    @GET("professor/{id}")
+    Call<Professor> getProfessor(@Path("id") int id);
 
-    @DELETE("professor")
-    Call<Professor> delete(@Query("id") long id);
+    @DELETE("professor/{id}")
+    Call<Professor> delete(@Path("id") int id);
 
 }

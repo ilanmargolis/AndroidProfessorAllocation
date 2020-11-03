@@ -1,16 +1,19 @@
 package com.example.retrofit.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 
 @Entity
-public class Allocation {
+public class Allocation implements Serializable {
 
     @PrimaryKey
-    private Long id;
+    @ColumnInfo(name = "server_id")
+    private int id;
     private String dayOfWeek;
     private Integer startHour;
     private Integer endHour;
@@ -28,11 +31,11 @@ public class Allocation {
         this.course = course;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,8 +79,8 @@ public class Allocation {
         this.course = course;
     }
 
-    @Override
-    public String toString() {
-        return dayOfWeek + " às " + startHour + "-" + endHour + " / " + professor + " / " + course;
-    }
+//    @Override
+//    public String toString() {
+//        return dayOfWeek + " às " + startHour + "-" + endHour + " / " + professor + " / " + course;
+//    }
 }

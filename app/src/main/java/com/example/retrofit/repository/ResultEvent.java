@@ -1,10 +1,8 @@
 package com.example.retrofit.repository;
 
-import java.util.List;
+public interface ResultEvent {
 
-public interface ResultEvent<T> {
-
-    void onResult(List<T> tList);
+    <T> void onResult(T result);
 
     void onFail(String message);
 }

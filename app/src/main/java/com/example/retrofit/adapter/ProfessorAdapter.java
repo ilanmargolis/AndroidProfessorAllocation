@@ -7,15 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.retrofit.activities.ProfessorActivity;
 import com.example.retrofit.R;
+import com.example.retrofit.activities.ProfessorDadosActivity;
 import com.example.retrofit.model.Professor;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.ProfessorHolder> {
@@ -48,7 +48,7 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
     @Override
     public int getItemCount() {
         // retorna quantos itens tem na lista
-        return this.professorList.size();
+        return this.professorList != null ? this.professorList.size() : 0;
     }
 
     public class ProfessorHolder extends RecyclerView.ViewHolder {
@@ -66,10 +66,9 @@ public class ProfessorAdapter extends RecyclerView.Adapter<ProfessorAdapter.Prof
             tvNome.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-    //                Toast.makeText(context, tvNome.getText().toString(), Toast.LENGTH_SHORT).show();
-    //                Intent intent = new Intent(context, ProfessorActivity.class);
-    //                intent.putExtra("nome", tvNome.getText().toString());
-    //                context.startActivity(intent);
+                    Intent intent = new Intent(context, ProfessorDadosActivity.class);
+                    intent.putExtra("professor", (Serializable) professorList.get(getAdapterPosition()));
+                    context.startActivity(intent);
                 }
             });
         }

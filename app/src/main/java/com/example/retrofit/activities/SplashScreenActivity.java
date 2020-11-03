@@ -3,8 +3,10 @@ package com.example.retrofit.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 import com.example.retrofit.R;
 import com.example.retrofit.config.RoomConfig;
@@ -18,6 +20,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         return dbInstance;
     }
 
+    private TextView tvLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +29,10 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // remove a barra de título apenas desta janela
         getSupportActionBar().hide();
+
+        tvLoading = (TextView) findViewById(R.id.tvLoading);
+        Typeface typeFace = Typeface.createFromAsset(getAssets(), "fonts/collegiate_black.ttf");
+        tvLoading.setTypeface(typeFace);
 
         dbInstance = RoomConfig.getInstance(SplashScreenActivity.this);
 
