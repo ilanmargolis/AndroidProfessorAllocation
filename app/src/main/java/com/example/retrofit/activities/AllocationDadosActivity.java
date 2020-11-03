@@ -1,7 +1,6 @@
 package com.example.retrofit.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.retrofit.R;
 import com.example.retrofit.model.Allocation;
-import com.example.retrofit.model.Departament;
 import com.example.retrofit.util.LoaddingDialog;
 import com.example.retrofit.config.RetrofitConfig;
 import com.example.retrofit.config.RoomConfig;
@@ -26,7 +24,6 @@ import com.example.retrofit.model.Professor;
 import com.example.retrofit.repository.ResultEvent;
 import com.example.retrofit.util.Utils;
 
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -266,8 +263,6 @@ public class AllocationDadosActivity extends AppCompatActivity {
     private void crudAllocation(byte tipoCrud, ResultEvent resultEvent) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(AllocationDadosActivity.this);
 
-        loaddingDialog.startDialog();
-
         Call<Allocation> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -281,8 +276,6 @@ public class AllocationDadosActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Allocation> call, Response<Allocation> response) {
                 allocation = response.body();
-
-                loaddingDialog.dismissDialog();
 
                 resultEvent.onResult(allocation);
             }

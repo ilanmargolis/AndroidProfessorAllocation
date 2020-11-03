@@ -138,8 +138,6 @@ public class DepartamentDadosActivity extends AppCompatActivity {
     private void crudDepartament(byte tipoCrud, ResultEvent resultEvent) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(DepartamentDadosActivity.this);
 
-        loaddingDialog.startDialog();
-
         Call<Departament> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -153,8 +151,6 @@ public class DepartamentDadosActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Departament> call, Response<Departament> response) {
                 departament = response.body();
-
-                loaddingDialog.dismissDialog();
 
                 resultEvent.onResult(departament);
             }

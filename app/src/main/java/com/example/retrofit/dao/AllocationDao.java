@@ -17,11 +17,17 @@ public interface AllocationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Allocation> allocationList);
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public void insert(Allocation allocation);
+
     @Update
     public void update(Allocation allocation);
 
     @Query("SELECT * FROM Allocation")
     public List<Allocation> getAll();
+
+    @Query("SELECT * FROM Allocation WHERE server_id = :id")
+    public Allocation getAllocation(int id);
 
     @Delete
     public void delete(Allocation allocation);

@@ -38,8 +38,6 @@ public class AllocationActivity extends AppCompatActivity {
 
         rvAllocation = (RecyclerView) findViewById(R.id.rvAllocation);
         rvAllocation.setLayoutManager(new LinearLayoutManager(AllocationActivity.this));
-        allocationAdapter = new AllocationAdapter(this, null);
-        rvAllocation.setAdapter(allocationAdapter);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class AllocationActivity extends AppCompatActivity {
         getAllAlocation(new ResultEvent() {
             @Override
             public <T> void onResult(T result) {
-                List<Allocation> allocationList = (List<Allocation>) result; // RoomConfig.getInstance(AllocationActivity.this).allocationDao().getAll();
+                List<Allocation> allocationList = (List<Allocation>) result;
 
                 allocationAdapter = new AllocationAdapter(AllocationActivity.this, allocationList);
                 rvAllocation.setAdapter(allocationAdapter);
@@ -80,6 +78,9 @@ public class AllocationActivity extends AppCompatActivity {
                 startActivity(intent);
 
                 return true;
+
+            case R.id.action_refresh:
+                onResume();
 
             default:
                 return super.onOptionsItemSelected(item);

@@ -15,15 +15,15 @@ public class Allocation implements Serializable {
     @ColumnInfo(name = "server_id")
     private int id;
     private String dayOfWeek;
-    private Integer startHour;
-    private Integer endHour;
+    private int startHour;
+    private int endHour;
     private Professor professor;
     private Course course;
 
     public Allocation() {
     }
 
-    public Allocation(String dayOfWeek, Integer startHour, Integer endHour, Professor professor, Course course) {
+    public Allocation(String dayOfWeek, int startHour, int endHour, Professor professor, Course course) {
         this.dayOfWeek = dayOfWeek;
         this.startHour = startHour;
         this.endHour = endHour;
@@ -47,15 +47,15 @@ public class Allocation implements Serializable {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Integer getStartHour() {
+    public int getStartHour() {
         return startHour;
     }
 
-    public void setStartHour(Integer startHour) {
+    public void setStartHour(int startHour) {
         this.startHour = startHour;
     }
 
-    public Integer getEndHour() {
+    public int getEndHour() {
         return endHour;
     }
 

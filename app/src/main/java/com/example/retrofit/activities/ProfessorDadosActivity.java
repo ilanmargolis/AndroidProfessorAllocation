@@ -193,8 +193,6 @@ public class ProfessorDadosActivity extends AppCompatActivity {
     private void crudProfessor(byte tipoCrud, ResultEvent resultEvent) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(ProfessorDadosActivity.this);
 
-        loaddingDialog.startDialog();
-
         Call<Professor> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -210,8 +208,6 @@ public class ProfessorDadosActivity extends AppCompatActivity {
                 professor = response.body();
 
                 resultEvent.onResult(professor);
-
-                loaddingDialog.dismissDialog();
             }
 
             @Override

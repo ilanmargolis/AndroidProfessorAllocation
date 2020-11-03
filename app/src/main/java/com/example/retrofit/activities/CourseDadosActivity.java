@@ -141,8 +141,6 @@ public class CourseDadosActivity extends AppCompatActivity {
     private void crudCourse(byte tipoCrud, ResultEvent resultEvent) {
         final LoaddingDialog loaddingDialog = new LoaddingDialog(CourseDadosActivity.this);
 
-        loaddingDialog.startDialog();
-
         Call<Course> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -156,8 +154,6 @@ public class CourseDadosActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Course> call, Response<Course> response) {
                 course = response.body();
-
-                loaddingDialog.dismissDialog();
 
                 resultEvent.onResult(course);
             }

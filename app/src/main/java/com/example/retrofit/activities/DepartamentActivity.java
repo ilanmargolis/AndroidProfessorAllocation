@@ -80,6 +80,9 @@ public class DepartamentActivity extends AppCompatActivity {
 
                 return true;
 
+            case R.id.action_refresh:
+                onResume();
+
             default:
                 return super.onOptionsItemSelected(item);
 

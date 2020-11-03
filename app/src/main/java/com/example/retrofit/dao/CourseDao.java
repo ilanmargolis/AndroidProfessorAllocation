@@ -17,6 +17,9 @@ public interface CourseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Course> courseList);
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public void insert(Course course);
+
     @Update
     public void update(Course course);
 
